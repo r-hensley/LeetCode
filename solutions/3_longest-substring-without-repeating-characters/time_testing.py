@@ -1,3 +1,4 @@
+import random
 import time
 
 # Test to see if max() or if > + assignment faster
@@ -78,3 +79,42 @@ print(f"Method two took {t4 - t3} seconds.")
 # Method one took 0.014400099986232817 seconds.
 # Method two took 0.007223499997053295 seconds.
 # Darn.
+
+# ----------------------------------------------------------------------------------------
+#
+# --------  Testing if "if dict.get()" is faster than "if in dict" --------
+#
+# ----------------------------------------------------------------------------------------
+
+d = {}
+iteration_number = 10000000
+for c in 'abcdefghijklkmnopqrstuvwxyz':
+    d[c] = random.random()
+
+counter = 0
+t1 = time.perf_counter()
+for _ in range(iteration_number):
+    if 'z' in d:
+        counter += 1
+    if 'A' in d:
+        counter += 1
+t2 = time.perf_counter()
+
+counter = 0
+t3 = time.perf_counter()
+for _ in range(iteration_number):
+    if d.get('z'):
+        counter += 1
+    if d.get('A'):
+        counter += 1
+t4 = time.perf_counter()
+
+print(f"Method one took {t2 - t1} seconds.")
+print(f"Method two took {t4 - t3} seconds.")
+
+# Method one took 0.0012396000092849135 seconds.
+# Method two took 0.0015241000219248235 seconds.
+
+# increased iteration number
+# Method one took 1.692932199977804 seconds.
+# Method two took 2.047657100018114 seconds.
